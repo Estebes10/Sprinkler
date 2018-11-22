@@ -56,20 +56,43 @@ function ($scope, $stateParams, $http) {
 
 }])
 
-.controller('riegoHumCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('riegoHumCtrl', ['$scope', '$stateParams', '$http','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $http, $ionicPopup) {
+  url = 'http://localhost:5000/conf_humidity'
+  $scope.data = {};
 
+    $scope.submit = function(){
+      console.log($scope.data.inferior);
+      console.log($scope.data.superior);
+
+      $http.post(url, {limInferior : $scope.data.inferior, limSuperior: $scope.data.superior}).then(function (res){
+          $scope.response = res.data;
+      });
+    };
 
 }])
 
-.controller('regarAhoraCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('regarAhoraCtrl', ['$scope', '$stateParams', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $http) {
+  url = 'http://localhost:5000/water_now'
 
+  $http.get(url).then(function (res){
+      console.log(res.data.humidity)
+      $scope.humidity = res.data.humidity;
+      $scope.temp = res.data.temperature;
+  });
 
+  $scope.update =  function(){
+    $http.get(url).then(function (res){
+        console.log(res.data.humidity)
+        $scope.humidity = res.data.humidity;
+        $scope.temp = res.data.temperature;
+    });
+  }
 }])
 
 .controller('lOGCtrl', ['$scope', '$stateParams', '$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
