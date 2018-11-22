@@ -16,10 +16,10 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('riegoHrCtrl', ['$scope', '$stateParams','$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('riegoHrCtrl', ['$scope', '$stateParams','$http', '$ionicPopup', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $http) {
+function ($scope, $stateParams, $http, $ionicPopup, $state) {
   url = 'http://localhost:5000/conf_hour'
   $scope.data = {};
 
@@ -49,17 +49,46 @@ function ($scope, $stateParams, $http) {
         console.log(days);
         console.log($scope.data.hour);
 
-        $http.post(url, {days : days, hour: $scope.data.hour}).then(function (res){
-            $scope.response = res.data;
-        });
+        // A confirm dialog
+      var confirmPopup = $ionicPopup.confirm({
+         title: 'Water configuration parameters',
+         template: 'Are you sure you want to change the current configuration?'
+       });
+
+       confirmPopup.then(function(res) {
+         if(res) {
+           $http.post(url, {days : days, hour: $scope.data.hour}).then(function (res){
+             $scope.response = res.data;
+           });
+           var alertPopup = $ionicPopup.alert({
+             title: 'Configuration Saved'
+           });
+
+           alertPopup.then(function(res) {
+             console.log('Thank you for not eating my delicious ice cream cone');
+             $state.go('page');
+           });
+           console.log('You are sure');
+         } else {
+           $scope.data.lunes = null;
+           $scope.data.martes = null;
+           $scope.data.miercoles = null;
+           $scope.data.jueves = null;
+           $scope.data.viernes = null;
+           $scope.data.sabado = null;
+           $scope.data.domingo = null;
+           $scope.data.hour = null;
+           console.log('You are not sure');
+         }
+       });
     };
 
 }])
 
-.controller('riegoHumCtrl', ['$scope', '$stateParams', '$http','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('riegoHumCtrl', ['$scope', '$stateParams', '$http','$ionicPopup', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $http, $ionicPopup) {
+function ($scope, $stateParams, $http, $ionicPopup, $state) {
   url = 'http://localhost:5000/conf_humidity'
   $scope.data = {};
 
@@ -67,9 +96,33 @@ function ($scope, $stateParams, $http, $ionicPopup) {
       console.log($scope.data.inferior);
       console.log($scope.data.superior);
 
-      $http.post(url, {limInferior : $scope.data.inferior, limSuperior: $scope.data.superior}).then(function (res){
-          $scope.response = res.data;
-      });
+        // A confirm dialog
+      var confirmPopup = $ionicPopup.confirm({
+         title: 'Water configuration parameters',
+         template: 'Are you sure you want to change the current configuration?'
+       });
+
+       confirmPopup.then(function(res) {
+         if(res) {
+           $http.post(url, {limInferior : $scope.data.inferior, limSuperior: $scope.data.superior}).then(function (res){
+             $scope.response = res.data;
+           });
+           var alertPopup = $ionicPopup.alert({
+             title: 'Configuration Saved'
+           });
+
+           alertPopup.then(function(res) {
+             console.log('Thank you for not eating my delicious ice cream cone');
+             $state.go('page');
+           });
+           console.log('You are sure');
+         } else {
+           $scope.data.inferior = null;
+           $scope.data.superior = null;
+           console.log('You are not sure');
+         }
+       });
+
     };
 
 }])
@@ -110,12 +163,6 @@ function ($scope, $stateParams, $http) {
     temp_temp = response.data.temp_values;
     $scope.data = new Array(hum_temp, temp_temp);
 
-    //$scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-    //$scope.series = ['Series A', 'Series B'];
-    /*$scope.data = [
-      [65, 59, 80, 81, 56, 55, 40],
-      [28, 48, 40, 19, 86, 27, 90]
-    ];*/
     $scope.onClick = function (points, evt) {
       console.log(points, evt);
     };

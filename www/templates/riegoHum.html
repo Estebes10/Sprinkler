@@ -1,18 +1,12 @@
-<ion-view title="Riego/hum" id="page4">
+<ion-view title="Humidity settings" id="page4">
   <ion-content padding="true" class="has-header">
     <form ng-submit="submit()">
-      <div class="item item-divider">
-          Days
-      </div>
-      <h3 id="riegoHum-heading2" style="color:#000000;">Menor a: {{ data.inferior }}</h3>
+      <h3 id="riegoHum-heading2" style="color:#000000;">Less than: {{ data.inferior }}%</h3>
       <ion-item class="range range-positive" id="riegoHum-range6">
         <input type="range" value="50" min="0" max="90" step="1" name="limInferior" ng-model="data.inferior">
       </ion-item>
-      <div class="item item-divider">
-          Time
-      </div>
-      <h3 id="riegoHum-heading3" style="color:#000000;">Mayor a: {{ data.superior }}</h3>
-      <ion-item class="range range-positive" id="riegoHum-range5">Range
+      <h3 id="riegoHum-heading3" style="color:#000000;">Grather than: {{ data.superior }}%</h3>
+      <ion-item class="range range-positive" id="riegoHum-range5">
         <input type="range" value="45" min="0" max="90" step="1" name="limSuperior" ng-model="data.superior">
       </ion-item>
       <input class="button button-block button-positive" type="submit" name="submit" value="Send">
