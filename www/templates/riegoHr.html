@@ -1,43 +1,55 @@
 <ion-view title="Riego/hr" id="page3">
-  <ion-content padding="true" class="has-header">
-    <form id="riegoHr-form2" class="list">
-      <ion-checkbox id="riegoHr-checkbox2" name="0" value="0">Lunes</ion-checkbox>
-      <ion-checkbox id="riegoHr-checkbox1" name="1" value="1">Martes</ion-checkbox>
-      <ion-checkbox id="riegoHr-checkbox3" name="2" value="2">Miercoles</ion-checkbox>
-      <ion-checkbox id="riegoHr-checkbox4" name="3" value="3">Jueves</ion-checkbox>
-      <ion-checkbox id="riegoHr-checkbox5" name="4" value="4">Viernes</ion-checkbox>
-      <ion-checkbox id="riegoHr-checkbox6" name="5" value="5">Sábado</ion-checkbox>
-      <ion-checkbox id="riegoHr-checkbox7" name="6" value="6">Domingo</ion-checkbox>
-      <label class="item item-select" id="riegoHr-select1" name="hour">
-        <span class="input-label">Select</span>
-        <select>
-          <option>00:00</option>
-          <option>01:00</option>
-          <option>02:00</option>
-          <option>03:00</option>
-          <option>04:00</option>
-          <option>05:00</option>
-          <option>06:00</option>
-          <option>07:00</option>
-          <option>08:00</option>
-          <option>09:00</option>
-          <option>10:00</option>
-          <option>12:00</option>
-          <option>13:00</option>
-          <option>14:00</option>
-          <option>15:00</option>
-          <option>16:00</option>
-          <option>17:00</option>
-          <option>18:00</option>
-          <option>19:00</option>
-          <option>20:00</option>
-          <option>21:00</option>
-          <option>22:00</option>
-          <option>23:00</option>
-          <option></option>
-        </select>
-      </label>
-      <a ui-sref="page()" id="riegoHr-button34" class="button button-positive button-block">Guardar</a>
-    </form>
+  <ion-content padding="true" class="has-header" ng-controller="riegoHrCtrl">
+    <!--<form id="riegoHr-form2" class="list" ng-controller="riegoHrCtrl">-->
+        <form ng-submit="submit()">
+          <div class="item item-divider">
+              Days
+          </div>
+          <ion-list id="days">
+            <ion-checkbox id="lunes" name="1" value="1" ng-model="data.lunes">Monday</ion-checkbox>
+            <ion-checkbox id="martes" name="1" value="1" ng-model="data.martes">Tuesday</ion-checkbox>
+            <ion-checkbox id="miercoles" name="2" value="2" ng-model="data.miercoles">Wednesday</ion-checkbox>
+            <ion-checkbox id="jueves" name="3" value="3" ng-model="data.jueves">Thursday</ion-checkbox>
+            <ion-checkbox id="viernes" name="4" value="4" ng-model="data.viernes">Friday</ion-checkbox>
+            <ion-checkbox id="sabado" name="5" value="5" ng-model="data.sabado">Saturday</ion-checkbox>
+            <ion-checkbox id="domingo" name="6" value="6" ng-model="data.domingo">Sunday</ion-checkbox>
+          </ion-list>
+          <div class="item item-divider">
+              Time
+          </div>
+          <label class="item item-select" id="riegoHr-select1" name="hour">
+            <span class="input-label">Select</span>
+            <select ng-model="data.hour">
+              <option>00:00</option>
+              <option>01:00</option>
+              <option>02:00</option>
+              <option>03:00</option>
+              <option>04:00</option>
+              <option>05:00</option>
+              <option>06:00</option>
+              <option>07:00</option>
+              <option>08:00</option>
+              <option>09:00</option>
+              <option>10:00</option>
+              <option>12:00</option>
+              <option>13:00</option>
+              <option>14:00</option>
+              <option>15:00</option>
+              <option>16:00</option>
+              <option>17:00</option>
+              <option>18:00</option>
+              <option>19:00</option>
+              <option>20:00</option>
+              <option>21:00</option>
+              <option>22:00</option>
+              <option>23:00</option>
+              <option></option>
+            </select>
+          </label>
+          <input class="button button-block button-positive" type="submit" name="submit" value="Send">
+        </form>
+      <!--<button class="button button-block button-positive" ng-click="updateDays({lunes: conf.lunes, martes: conf.martes, miercoles: conf.miercoles, jueves: conf.jueves, viernes: conf.viernes, sabado: conf.sabado, domingo: conf.domingo, hour: conf.hour})"> Save </button>-->
+      <!--<a ui-sref="page()" id="riegoHr-button34" class="button button-positive button-block">Guardar</a>-->
+    <!--</form>-->
   </ion-content>
 </ion-view>

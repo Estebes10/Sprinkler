@@ -16,11 +16,43 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('riegoHrCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('riegoHrCtrl', ['$scope', '$stateParams','$http', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $http) {
+  url = 'http://localhost:5000/conf_hour'
+  $scope.data = {};
 
+    $scope.submit = function(){
+      days = [];
+        if($scope.data.lunes == true){
+          days.push(0);
+        }
+        if($scope.data.martes == true){
+          days.push(1);
+        }
+        if($scope.data.miercoles == true){
+          days.push(2);
+        }
+        if($scope.data.jueves == true){
+          days.push(3);
+        }
+        if($scope.data.viernes == true){
+          days.push(4);
+        }
+        if($scope.data.sabado == true){
+          days.push(5);
+        }
+        if($scope.data.domingo == true){
+          days.push(6);
+        }
+        console.log(days);
+        console.log($scope.data.hour);
+
+        $http.post(url, {days : days, hour: $scope.data.hour}).then(function (res){
+            $scope.response = res.data;
+        });
+    };
 
 }])
 
